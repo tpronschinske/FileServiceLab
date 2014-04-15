@@ -33,8 +33,8 @@ public class HyphenFileFormat implements FormatStrategy{
         this.fileReaderStrategy = fileReaderStrategy;
     }
 
-    public List<String> convertToCsv() {
-        List<String> csvFormattedList = new ArrayList<>();
+    public List<String> convertToHyphenFormat() {
+        List<String> hyphenFormattedList = new ArrayList<>();
         int counter = 0;
         String format = "";
         for (String record : getFileReaderStrategy().getFileInformation()) {
@@ -42,7 +42,7 @@ public class HyphenFileFormat implements FormatStrategy{
             record = record.trim();
             format += record + HYPHEN;
         }
-        return csvFormattedList;
+        return hyphenFormattedList;
     }
 
     @Override
@@ -70,11 +70,12 @@ public class HyphenFileFormat implements FormatStrategy{
 
 
     // not sure if this is proper still working on it
+    @Override
     public final List<Map<String, List<String>>> getAsMapList() {
         List<Map<String,List<String>>> info = new ArrayList<Map<String,List<String>>>();
         Map<String,List<String>> recordList = new HashMap<String, List<String>>();
         List<String> recordListArray = new ArrayList<String>();
-        for (String record : convertToCsv()) {
+        for (String record : convertToHyphenFormat()) {
             String[] recordInArray = record.split(HYPHEN);   
             for (int index = 0; index < getFileReaderStrategy().getFileSize(); index++) {
                 recordListArray.add(recordInArray[index]);
